@@ -27,10 +27,18 @@ class MoviesController < ApplicationController
   # end
 
   # This way allow me to create a costum serializer and display all the data how I want to
-  
+
   def summary 
-    movie  = Movie.find(params[:id])
+    movie  = Movie.find_by(id: params[:id])
     render json: movie, serializer: MovieSummarySerializer
+  end
+
+
+  # This action return all the movies in entire database
+  def summaries 
+    movie = Movie.all 
+    render json: movie, each_serializer: MovieSummarySerializer
+
   end
 
   private
